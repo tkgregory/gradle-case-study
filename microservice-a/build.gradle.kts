@@ -5,9 +5,9 @@ plugins {
 
 deployment {
     qa {
-        replicas = 2
+        replicas(2)
     }
     prod {
-        replicas = 3
+        replicas(3)
     }
 }

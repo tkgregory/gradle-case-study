@@ -1,5 +1,13 @@
 package com.tomgregory.deployment;
 
 public abstract class Environment {
-    public int replicas;
+    private int replicas;
+
+    public void replicas(int replicas) {
+        this.replicas = replicas;
+    }
+
+    public int getReplicas() {
+        return replicas;
+    }
 }

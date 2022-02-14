@@ -15,7 +15,7 @@ public class DeploymentPlugin implements Plugin<Project> {
             task.setDescription("Spurts your app into QA!");
             task.getDeployableName().set(project.getName());
             task.getDestinationEnvironment().set("qa");
-            task.getReplicas().set(extension.getQA().replicas);
+            task.getReplicas().set(extension.getQA().getReplicas());
         });
 
         project.getTasks().register("deployProd", DeploymentTask.class, task -> {
@@ -23,7 +23,7 @@ public class DeploymentPlugin implements Plugin<Project> {
             task.setDescription("Spurts your app into prod!");
             task.getDeployableName().set(project.getName());
             task.getDestinationEnvironment().set("qa");
-            task.getReplicas().set(extension.getProd().replicas);
+            task.getReplicas().set(extension.getProd().getReplicas());
         });
     }
 }
