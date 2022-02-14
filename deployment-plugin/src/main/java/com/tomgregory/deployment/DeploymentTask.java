@@ -17,7 +17,7 @@ public abstract class DeploymentTask extends DefaultTask {
 
     @TaskAction
     public void deploy() {
-        System.out.printf("Deploying %s replicas of %s to %s!",
+        System.out.printf("Deploying %s replica(s) of %s to %s!",
                 getReplicas().get(), getDeployableName().get(), getDestinationEnvironment().get());
     }
 }

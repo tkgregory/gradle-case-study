@@ -11,8 +11,8 @@ public class DeploymentPluginExtension {
 
     @Inject
     public DeploymentPluginExtension(ObjectFactory objectFactory) {
-        this.qa = objectFactory.newInstance(Environment.class);
-        this.prod = objectFactory.newInstance(Environment.class);
+        this.qa = objectFactory.newInstance(Environment.class, objectFactory);
+        this.prod = objectFactory.newInstance(Environment.class, objectFactory);
     }
 
     public void qa(Action<Environment> action) {

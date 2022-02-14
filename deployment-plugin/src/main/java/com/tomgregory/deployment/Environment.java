@@ -1,13 +1,19 @@
 package com.tomgregory.deployment;
 
-public abstract class Environment {
-    private int replicas;
+import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.provider.Property;
 
-    public void replicas(int replicas) {
-        this.replicas = replicas;
+import javax.inject.Inject;
+
+public abstract class Environment {
+    private final Property<Integer> replicas;
+
+    @Inject
+    public Environment(ObjectFactory objectFactory) {
+        replicas = objectFactory.property(Integer.class).convention(1);
     }
 
-    public int getReplicas() {
+    public Property<Integer> getReplicas() {
         return replicas;
     }
 }
