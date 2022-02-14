@@ -8,9 +8,6 @@ application {
 }
 
 deployment {
-    qa {
-//        replicas.set(2)
-    }
     prod {
         replicas.set(10)
     }
