@@ -4,5 +4,10 @@ plugins {
 }
 
 deployment {
-    destinationEnvironment.set("qa")
+    qa {
+        replicas = 2
+    }
+    prod {
+        replicas = 3
+    }
 }

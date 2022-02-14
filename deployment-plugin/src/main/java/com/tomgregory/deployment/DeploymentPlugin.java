@@ -4,15 +4,26 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 
 public class DeploymentPlugin implements Plugin<Project> {
+    private static final String TASK_GROUP = "Deployment";
+
     @Override
     public void apply(Project project) {
         DeploymentPluginExtension extension = project.getExtensions().create("deployment", DeploymentPluginExtension.class);
 
-        project.getTasks().register("deploy", DeploymentTask.class, task -> {
-            task.setGroup("Deployment");
-            task.setDescription("Spurts your app where it needs to go!");
+        project.getTasks().register("deployQA", DeploymentTask.class, task -> {
+            task.setGroup(TASK_GROUP);
+            task.setDescription("Spurts your app into QA!");
             task.getDeployableName().set(project.getName());
-            task.getDestinationEnvironment().set(extension.getDestinationEnvironment());
+            task.getDestinationEnvironment().set("qa");
+            task.getReplicas().set(extension.getQA().replicas);
+        });
+
+        project.getTasks().register("deployProd", DeploymentTask.class, task -> {
+            task.setGroup(TASK_GROUP);
+            task.setDescription("Spurts your app into prod!");
+            task.getDeployableName().set(project.getName());
+            task.getDestinationEnvironment().set("qa");
+            task.getReplicas().set(extension.getProd().replicas);
         });
     }
 }

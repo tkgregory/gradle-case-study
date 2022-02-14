@@ -8,11 +8,16 @@ import org.gradle.api.tasks.TaskAction;
 public abstract class DeploymentTask extends DefaultTask {
     @Input
     public abstract Property<String> getDeployableName();
+
     @Input
     public abstract Property<String> getDestinationEnvironment();
 
+    @Input
+    public abstract Property<Integer> getReplicas();
+
     @TaskAction
     public void deploy() {
-        System.out.printf("3...2...1...deploying %s to %s!", getDeployableName().get(), getDestinationEnvironment().get());
+        System.out.printf("Deploying %s replicas of %s to %s!",
+                getReplicas().get(), getDeployableName().get(), getDestinationEnvironment().get());
     }
 }
