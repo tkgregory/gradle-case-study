@@ -1,6 +1,10 @@
 plugins {
-    java
+    application
     id("com.tomgregory.deployment")
+}
+
+application {
+    mainClass.set("com.tomgregory.microservicea.MicroserviceA")
 }
 
 deployment {
