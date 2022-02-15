@@ -1,0 +1,37 @@
+name: CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java-version: [ 8, 11, 17 ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ matrix.java-version }}
+          distribution: 'adopt'
+          cache: gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x deployment-plugin/gradlew microservice-a/gradlew microservice-b/gradlew
+      - name: Build plugin
+        run: ./gradlew build
+        working-directory: deployment-plugin
+      - name: Deploy microservice-a to QA
+        run: ./gradlew deployQA
+        working-directory: microservice-a
+      - name: Deploy microservice-a to Prod
+        run: ./gradlew deployProd
+        working-directory: microservice-a
+      - name: Deploy microservice-b to QA
+        run: ./gradlew deployQA
+        working-directory: microservice-b
+      - name: Deploy microservice-b to Prod
+        run: ./gradlew deployProd
+        working-directory: microservice-b
