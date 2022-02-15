@@ -10,20 +10,17 @@ public class DeploymentPlugin implements Plugin<Project> {
     public void apply(Project project) {
         DeploymentPluginExtension extension = project.getExtensions().create("deployment", DeploymentPluginExtension.class);
 
-        project.getTasks().register("deployQA", DeploymentTask.class, task -> {
-            task.setGroup(TASK_GROUP);
-            task.setDescription("Spurts your app into QA!");
-            task.getDeployableName().set(project.getName());
-            task.getDestinationEnvironment().set("qa");
-            task.getReplicas().set(extension.getQA().getReplicas().get());
-        });
+        registerTaskForEnvironment(project, "QA", extension.getQA());
+        registerTaskForEnvironment(project, "Prod", extension.getProd());
+    }
 
-        project.getTasks().register("deployProd", DeploymentTask.class, task -> {
+    private void registerTaskForEnvironment(Project project, String environmentName, Environment environmentConfig) {
+        project.getTasks().register(String.format("deploy%s", environmentName), DeploymentTask.class, task -> {
             task.setGroup(TASK_GROUP);
-            task.setDescription("Spurts your app into prod!");
+            task.setDescription(String.format("Spurts your app into %s!", environmentName));
             task.getDeployableName().set(project.getName());
-            task.getDestinationEnvironment().set("qa");
-            task.getReplicas().set(extension.getProd().getReplicas().get());
+            task.getDestinationEnvironment().set(environmentName);
+            task.getReplicas().set(environmentConfig.getReplicas().get());
         });
     }
 }
