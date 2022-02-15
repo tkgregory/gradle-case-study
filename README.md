@@ -1,3 +1,5 @@
+[![CI](https://github.com/tkgregory/gradle-case-study/actions/workflows/gradle.yml/badge.svg)](https://github.com/tkgregory/gradle-case-study/actions/workflows/gradle.yml)
+
 ## Overview
 
 Custom plugins are a great way to share common build logic between multiple projects. This is especially useful in a microservice environment.
