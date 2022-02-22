@@ -47,3 +47,6 @@ You'll see the actual deployment consists of just printing a string.
 > Deploying 3 replica(s) of microservice-a to Prod!
 
 You can hook in any deployment mechanism such as Kubernetes, AWS ECS, etc. 
+
+## Need Gradle support?
+Contact me if you need help with Gradle at [tom@tomgregory.com](mailto:tom@tomgregory.com).
